@@ -1,0 +1,72 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+venv/
+env/
+ENV/
+
+# Streamlit
+.streamlit/
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Keys (IMPORTANT: Never commit private keys!)
+*.pem
+private_key*
+public_key*
+
+# Encrypted files
+*.encrypted
+*.decrypted
+
+# Stego images
+stego_*.png
+stego_*.jpg
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+
+# Test files
+test_*.txt
+test_*.png
+test_*.jpg
+temp_*
+tmp_*
+
+# User uploads
+uploads/
+downloads/
+output/
