@@ -79,10 +79,10 @@ def show_dashboard():
     with col1:
         st.markdown("""
             #### 1. 💬 Super Enkripsi Text
-            **Algoritma:** Caesar Cipher + AES-128
+            **Algoritma:** Caesar Cipher + AES-192 CBC
             - Double layer encryption
             - Caesar Cipher (klasik)
-            - AES-128 CBC (modern)
+            - AES-192 CBC (modern)
             - Passphrase-protected
             - IV embedded dalam ciphertext
             
@@ -115,7 +115,7 @@ def show_dashboard():
 
 def show_text_encryption():
     st.title("💬 Super Enkripsi Text")
-    st.markdown("**Algoritma:** Caesar Cipher + AES-128 CBC")
+    st.markdown("**Algoritma:** Caesar Cipher + AES-192 CBC")
     st.markdown("---")
     
     tab1, tab2 = st.tabs(["🔒 Enkripsi", "🔓 Dekripsi"])
