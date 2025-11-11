@@ -87,6 +87,7 @@ class SuperEncryption:
         
         return {
             'ciphertext': ciphertext_b64,
+            'iv': base64.b64encode(iv_ct[:16]).decode('utf-8'),
             'shift': self.shift,
             'algorithm': 'Caesar Cipher + AES-192 CBC'
         }
@@ -102,9 +103,7 @@ class SuperEncryption:
         plaintext = CaesarCipher.decrypt(caesar_result, self.shift)
         return plaintext
 
-class AESEncryption:
-    """AES-192 - Algoritma Kriptografi Modern"""
-    
+class AESEncryption:    
     @staticmethod
     def prepare_key(password):
         """Konversi password ke 192-bit key menggunakan SHA-256"""
@@ -112,10 +111,6 @@ class AESEncryption:
     
     @staticmethod
     def encrypt(plaintext, password):
-        """
-        Enkripsi menggunakan AES-192 CBC Mode
-        Returns: (ciphertext_base64, iv_base64)
-        """
         iv_ct = aes192_enkripsi(plaintext, password)
 
         # Split IV and ciphertext
@@ -129,7 +124,6 @@ class AESEncryption:
     
     @staticmethod
     def decrypt(ciphertext_base64, password, iv_base64):
-        #Dekripsi AES-192 CBC
         ct = base64.b64decode(ciphertext_base64)
         iv = base64.b64decode(iv_base64)
 

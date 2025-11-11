@@ -111,5 +111,4 @@ def show_footer():
     """, unsafe_allow_html=True)
 
 if __name__ == "__main__":
-    # demo/testing removed for production
     pass

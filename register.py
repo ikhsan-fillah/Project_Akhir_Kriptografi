@@ -49,5 +49,4 @@ def show_register():
 
 
 if __name__ == "__main__":
-    # demo/testing removed for production
     pass

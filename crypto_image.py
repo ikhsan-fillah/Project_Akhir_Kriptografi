@@ -5,14 +5,12 @@ import os
 
 class ImageSteganography:
     def __init__(self):
-        self.delimiter = "$$$END$$$"  # Penanda akhir pesan
+        self.delimiter = "$$$END$$$" 
     
     def text_to_binary(self, text):
-        #Konversi text ke representasi binary
         return ''.join(format(ord(char), '08b') for char in text)
     
     def binary_to_text(self, binary):
-        #Konversi binary ke text
         text = ''
         for i in range(0, len(binary), 8):
             byte = binary[i:i+8]
@@ -24,7 +22,7 @@ class ImageSteganography:
         try:
             img = Image.open(image_path)
             width, height = img.size
-            total_pixels = width * height * 3  # RGB
+            total_pixels = width * height * 3  
             
             # 1 karakter = 8 bits, minus delimiter
             max_chars = (total_pixels // 8) - len(self.delimiter) - 1
@@ -51,7 +49,7 @@ class ImageSteganography:
             if len(binary_message) > max_bits:
                 return False, f"Pesan terlalu panjang! Maksimal ~{max_bits // 8} karakter."
             
-            # Flatten array untuk manipulasi LSB
+            # Flatten array untuk manipulasi LSB dijadikan array 1D
             flat_img = img_array.flatten()
             
             # Embed message ke LSB
@@ -72,23 +70,19 @@ class ImageSteganography:
     
     def extract_message(self, stego_image_path):
         try:
-            # Load stego image
             img = Image.open(stego_image_path)
             if img.mode != 'RGB':
                 img = img.convert('RGB')
 
             img_array = np.array(img)
             flat_img = img_array.flatten()
-            
-            # Ekstrak bit dari LSB
+
             binary_message = ''
             for pixel_value in flat_img:
                 binary_message += str(pixel_value & 1)
-            
-            # Convert ke text
+
             full_text = self.binary_to_text(binary_message)
-            
-            # Cari delimiter
+
             if self.delimiter in full_text:
                 message = full_text.split(self.delimiter)[0]
                 return True, message

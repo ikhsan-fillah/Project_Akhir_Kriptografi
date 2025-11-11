@@ -152,7 +152,7 @@ def show_text_encryption():
                         plaintext,
                         result['ciphertext'],
                         result['algorithm'],
-                        "",
+                        result['iv'],
                         result['shift']
                     )
                     txt_content = (
@@ -199,7 +199,6 @@ def show_text_encryption():
                     st.success("✅ Dekripsi berhasil!")
                     st.text_area("Pesan Asli:", value=plaintext, height=150)
 
-                    # Siapkan isi .txt yang berisi metadata dan hasil dekripsi
                     from datetime import datetime
                     decryption_time = datetime.utcnow().isoformat() + "Z"
                     txt_content = (
@@ -286,7 +285,6 @@ def show_steganography():
 
                                 st.image(output_path, caption="Stego Image (Gambar dengan Pesan Tersembunyi)", 
                                         use_container_width=True)
- 
                                 db = Database()
                                 db.save_steganography(
                                     st.session_state.user_id,
@@ -309,8 +307,7 @@ def show_steganography():
                             st.error(f"❌ Error: {str(e)}")
                     else:
                         st.warning("⚠️ Masukkan pesan terlebih dahulu!")
-    
-    
+
     with tab2:
         st.subheader("Ekstrak Pesan dari Stego Image")
         
@@ -591,5 +588,4 @@ def main():
 
 
 if __name__ == "__main__":
-    # demo/testing removed for production
     pass

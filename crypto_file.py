@@ -9,34 +9,18 @@ import hashlib
 
 
 class TripleDESFileEncryption:
-    """
-    Enkripsi file menggunakan 3DES (Triple DES)
-    3DES: 192-bit key (3 x 56-bit), 64-bit block size
-    """
-    
     def __init__(self):
         self.algorithm = "3DES-192"
-        self.key_size = 24  # 192 bits (3 x 64-bit keys)
-        self.block_size = 8  # 64 bits
+        self.key_size = 24
+        self.block_size = 8  
     
     def _derive_key(self, password):
         salt = get_random_bytes(16)
-        # Gunakan PBKDF2 untuk derive key 192-bit untuk 3DES
+        #menggunakan PBKDF2 untuk derive key 192-bit untuk 3DES
         key = PBKDF2(password, salt, dkLen=24, count=100000)
         return key, salt
     
     def encrypt_file(self, input_path, password, output_path=None):
-        """
-        Enkripsi file menggunakan password
-        
-        Args:
-            input_path: Path file yang akan dienkripsi
-            password: Password untuk enkripsi
-            output_path: Path output (optional)
-        
-        Returns:
-            tuple: (success, message, output_path)
-        """
         try:
             if not os.path.exists(input_path):
                 return False, "File tidak ditemukan!", None
@@ -73,17 +57,6 @@ class TripleDESFileEncryption:
             return False, f"Error: {str(e)}", None
     
     def decrypt_file(self, input_path, password, output_path=None):
-        """
-        Dekripsi file yang dienkripsi
-        
-        Args:
-            input_path: Path file terenkripsi
-            password: Password untuk dekripsi
-            output_path: Path output (optional)
-        
-        Returns:
-            tuple: (success, message, output_path)
-        """
         try:
             if not os.path.exists(input_path):
                 return False, "File tidak ditemukan!", None
@@ -100,8 +73,7 @@ class TripleDESFileEncryption:
             salt = base64.b64decode(encrypted_data['salt'])
             iv = base64.b64decode(encrypted_data['iv'])
             ciphertext = base64.b64decode(encrypted_data['ciphertext'])
-            
-            # Derive key dari password dengan salt yang sama
+
             key = PBKDF2(password, salt, dkLen=24, count=100000)
 
             cipher = DES3.new(key, DES3.MODE_CBC, iv=iv)
@@ -121,7 +93,6 @@ class TripleDESFileEncryption:
             return False, f"Error: {str(e)}", None
     
     def _format_size(self, size_bytes):
-        """Format ukuran file"""
         for unit in ['B', 'KB', 'MB', 'GB']:
             if size_bytes < 1024.0:
                 return f"{size_bytes:.2f} {unit}"
